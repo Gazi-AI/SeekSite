@@ -1,1 +1,230 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeekSite - AI Website Builder</title>
+    <meta name="description" content="SeekSite - Build stunning websites with AI. Powered by Pollinations AI.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Ambient Background -->
+    <div class="ambient-bg">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+    </div>
 
+    <!-- Delete Confirm Modal -->
+    <div id="deleteModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icon"><i class="fas fa-trash-alt"></i></div>
+            <h3>Sohbeti Sil</h3>
+            <p>Bu sohbeti ve uretilen websiteyi kalici olarak silmek istediginize emin misiniz?</p>
+            <div class="modal-actions">
+                <button id="modalCancel" class="modal-btn modal-btn-cancel">Iptal</button>
+                <button id="modalConfirm" class="modal-btn modal-btn-danger">Evet, Sil</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-name">SeekSite</span>
+                    <span class="logo-tag">AI Builder</span>
+                </div>
+            </div>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- New Chat + Home -->
+        <div class="sidebar-nav">
+            <button class="sidebar-action-btn" id="btnNewChat" title="Yeni Sohbet">
+                <i class="fas fa-plus"></i>
+                <span>Yeni Sohbet</span>
+            </button>
+        </div>
+
+        <!-- Chat History -->
+        <div class="sidebar-section sidebar-section-chats">
+            <div class="section-title">Sohbet Gecmisi</div>
+            <div class="chat-history-list" id="chatHistoryList">
+                <!-- Dinamik doldurulacak -->
+            </div>
+        </div>
+
+        <!-- Quick Prompts -->
+        <div class="sidebar-section sidebar-section-quick">
+            <div class="section-title">Hizli Baslangic</div>
+            <div class="quick-prompts" id="quickPrompts">
+                <button class="quick-prompt-btn" data-prompt="Modern ve etkileyici bir teknoloji startup landing sayfasi yap">
+                    <i class="fas fa-laptop-code"></i><span>Tech Startup</span>
+                </button>
+                <button class="quick-prompt-btn" data-prompt="Sicak ve davetkar bir restoran web sitesi yap, menu ve rezervasyon bolumu olsun">
+                    <i class="fas fa-utensils"></i><span>Restoran</span>
+                </button>
+                <button class="quick-prompt-btn" data-prompt="Profesyonel ve sik bir kisisel portfolio web sitesi yap">
+                    <i class="fas fa-briefcase"></i><span>Portfolio</span>
+                </button>
+                <button class="quick-prompt-btn" data-prompt="Modern bir e-ticaret urun tanitim sayfasi yap">
+                    <i class="fas fa-shopping-cart"></i><span>E-Ticaret</span>
+                </button>
+                <button class="quick-prompt-btn" data-prompt="Profesyonel bir SaaS urun landing sayfasi yap">
+                    <i class="fas fa-chart-line"></i><span>SaaS Landing</span>
+                </button>
+                <button class="quick-prompt-btn" data-prompt="Enerjik ve modern bir fitness ve spor salonu web sitesi yap">
+                    <i class="fas fa-dumbbell"></i><span>Fitness</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Enhance Buttons -->
+        <div class="sidebar-section sidebar-section-enhance">
+            <div class="section-title">Hizli Iyilestirmeler</div>
+            <div class="enhance-buttons" id="enhanceButtons">
+                <button class="enhance-btn" data-type="dark_mode" disabled><i class="fas fa-moon"></i><span>Dark Mode</span></button>
+                <button class="enhance-btn" data-type="animations" disabled><i class="fas fa-magic"></i><span>Animasyon</span></button>
+                <button class="enhance-btn" data-type="modern_ui" disabled><i class="fas fa-gem"></i><span>Modern UI</span></button>
+                <button class="enhance-btn" data-type="interactive" disabled><i class="fas fa-hand-pointer"></i><span>Etkilesim</span></button>
+                <button class="enhance-btn" data-type="performance" disabled><i class="fas fa-bolt"></i><span>SEO</span></button>
+                <button class="enhance-btn" data-type="accessibility" disabled><i class="fas fa-universal-access"></i><span>A11y</span></button>
+            </div>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="powered-by">
+                <i class="fas fa-microchip"></i>
+                <span>Ollama + Design DNA</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Top Bar -->
+        <header class="topbar" id="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <div class="topbar-title">
+                    <span class="status-dot" id="statusDot"></span>
+                    <span id="statusText">Hazir</span>
+                </div>
+            </div>
+            <div class="topbar-center">
+                <div class="view-switcher">
+                    <button class="view-btn active" data-view="split"><i class="fas fa-columns"></i></button>
+                    <button class="view-btn" data-view="preview"><i class="fas fa-eye"></i></button>
+                    <button class="view-btn" data-view="code"><i class="fas fa-code"></i></button>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <div class="model-selection">
+                    <div class="model-select-wrapper">
+                        <i class="fas fa-brain model-icon"></i>
+                        <select id="modelSelect" class="model-select">
+                            <option value="llama3">Loading Models...</option>
+                        </select>
+                        <i class="fas fa-chevron-down select-arrow"></i>
+                    </div>
+                </div>
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="tr">TR</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <button class="topbar-btn" id="btnCopyCode" title="Kodu Kopyala" disabled><i class="fas fa-copy"></i></button>
+                <button class="topbar-btn" id="btnDownload" title="HTML Indir" disabled><i class="fas fa-download"></i></button>
+            </div>
+        </header>
+
+        <!-- Workspace -->
+        <div class="workspace" id="workspace">
+            <!-- Welcome Screen -->
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="welcome-content">
+                    <div class="welcome-icon">
+                        <div class="welcome-icon-glow"></div>
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h1 class="welcome-title">
+                        <span class="gradient-text">SeekSite</span> ile Web Sitesi Olustur
+                    </h1>
+                    <p class="welcome-subtitle">
+                        Yapay zeka destekli website builder. Hayalindeki siteyi tanimla, biz olusturalim.<br>
+                        <strong>Design DNA</strong> teknolojisi ile her model profesyonel siteler uretir.
+                    </p>
+                    <div class="welcome-features">
+                        <div class="welcome-feature"><i class="fas fa-dna"></i><span>Design DNA</span></div>
+                        <div class="welcome-feature"><i class="fas fa-eye"></i><span>Canli Onizleme</span></div>
+                        <div class="welcome-feature"><i class="fas fa-download"></i><span>Tek Tik Indirme</span></div>
+                        <div class="welcome-feature"><i class="fas fa-history"></i><span>Sohbet Gecmisi</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Panel -->
+            <div class="panel code-panel" id="codePanel">
+                <div class="panel-header">
+                    <div class="panel-tab active"><i class="fas fa-code"></i><span>index.html</span></div>
+                    <div class="panel-actions">
+                        <button class="panel-action-btn" id="btnWrapCode" title="Kelime Kaydirma"><i class="fas fa-text-width"></i></button>
+                    </div>
+                </div>
+                <div class="code-container" id="codeContainer">
+                    <div class="code-line-numbers" id="lineNumbers"></div>
+                    <pre class="code-content" id="codeContent" contenteditable="true" spellcheck="false"></pre>
+                </div>
+            </div>
+
+            <!-- Resize Handle -->
+            <div class="resize-handle" id="resizeHandle"><div class="resize-line"></div></div>
+
+            <!-- Preview Panel -->
+            <div class="panel preview-panel" id="previewPanel">
+                <div class="panel-header">
+                    <div class="panel-tab active"><i class="fas fa-eye"></i><span>Onizleme</span></div>
+                    <div class="device-switcher">
+                        <button class="device-btn active" data-device="desktop"><i class="fas fa-desktop"></i></button>
+                        <button class="device-btn" data-device="tablet"><i class="fas fa-tablet-alt"></i></button>
+                        <button class="device-btn" data-device="mobile"><i class="fas fa-mobile-alt"></i></button>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="panel-action-btn" id="btnRefreshPreview" title="Yenile"><i class="fas fa-sync-alt"></i></button>
+                        <button class="panel-action-btn" id="btnOpenExternal" title="Yeni Sekmede Ac"><i class="fas fa-external-link-alt"></i></button>
+                    </div>
+                </div>
+                <div class="preview-container" id="previewContainer">
+                    <iframe id="previewFrame"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Input -->
+        <div class="chat-input-container" id="chatInputContainer">
+            <div class="chat-input-wrapper">
+                <div class="input-glow"></div>
+                <textarea id="promptInput" placeholder="Web sitenizi tanimlayin..." rows="1" maxlength="2000"></textarea>
+                <div class="chat-input-actions">
+                    <span class="char-count" id="charCount">0/2000</span>
+                    <button class="send-btn" id="btnSend"><i class="fas fa-paper-plane"></i></button>
+                    <button class="stop-btn hidden" id="btnStop"><i class="fas fa-stop"></i></button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
