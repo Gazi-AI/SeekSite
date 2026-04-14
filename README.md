@@ -50,13 +50,6 @@ Uygulama başlatıldıktan sonra tarayıcınızda `http://localhost:5000` adresi
 
 ---
 
-## 🚀 Gelecek Planları
-
-- [ ] **Live Preview:** Kod yazılırken sağ tarafta anlık önizleme.
-- [ ] **Image-to-Code:** Ekran görüntüsünden web sitesi üretme.
-- [ ] **Export to ZIP:** Tüm varlıkları (assets) içeren tam paket indirme.
-
----
 
 ## 🤝 Katkıda Bulunun
 
@@ -64,5 +57,5 @@ SeekSite açık kaynaklı bir projedir. Her türlü katkı, hata bildirimi ve ö
 
 ---
 
-**Geliştiren:** [Senin Adın/Kullanıcı Adın]
+**Geliştiren:** [Emir Özcan/Gazi-AI]
 *Powered by Ollama & Design DNA Architecture*
