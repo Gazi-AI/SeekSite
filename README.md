@@ -9,7 +9,7 @@ SeekSite transforms small language models (4b, 8b, 12b, 20b) into professional w
 
 SeekSite's "Design DNA Injection" architecture radically enhances the design capabilities of local models. The graph below illustrates the significant difference between standard models and those integrated with SeekSite.
 
-![The SeekSite Effect](benchmarks.png)
+![The SeekSite Effect](benchmarks1.png)
 
 ### Performance Benchmark Table
 
